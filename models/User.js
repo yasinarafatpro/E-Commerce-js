@@ -1,5 +1,6 @@
-/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 const userSchema = mongoose.Schema({
   name: {
@@ -26,6 +27,10 @@ const userSchema = mongoose.Schema({
     type: Boolean,
     default: false
   }
+})
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password'))next()
+  this.password = await bcrypt.hash(this.password, saltRounds)
 })
 const User = mongoose.model('users', userSchema)
 module.exports = User

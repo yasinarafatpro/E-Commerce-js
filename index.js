@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable no-unused-vars */
 const express = require('express')
 const bodyParser = require('body-parser')
 const User = require('./models/User')
@@ -16,12 +14,12 @@ app.get('/', (req, res) => {
 })
 
 app.get('/register', (req, res) => {
-  return res.render('register')
+  return res.render('register', { message: 'please complete the form' })
 })
 app.post('/register', async (req, res) => {
   const user = new User(req.body)
   await user.save()
- return res.send(user)
+  return res.render('register', { message: 'successfull' })
 })
 app.listen(2500, function () {
   console.log('server is running at port 2500')
