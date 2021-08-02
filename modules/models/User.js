@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
+    lowercase: true,
     required: [true, 'email is required'],
     maxlength: [128, 'email can\'t be higher then 128 characters'],
     index: true
@@ -28,6 +29,7 @@ const userSchema = mongoose.Schema({
     default: false
   }
 })
+// bcrypt password
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password'))next()
   this.password = await bcrypt.hash(this.password, saltRounds)
