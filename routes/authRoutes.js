@@ -1,30 +1,48 @@
-/* eslint-disable no-unreachable */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 const express = require('express')
 const router = express.Router()
 const addUser = require('../modules/service/userService')
 const userRegisterValidation = require('../modules/validation/userValidation')
-const { joiErrorFormetter, mongoseErroeFormatter } = require('../utils/validationErrorFormatter')
+const joiErrorFormatter = require('../utils/validationErrorFormatter')
+const mongoseErroeFormatter = require('../utils/validationErrorFormatter')
 
 router.get('/register', (req, res) => {
-  return res.render('register', { message: 'please complete the login form' })
+  return res.render('register', { message: {}, FormData: {}, errors: {} })
 })
 router.post('/register', async (req, res) => {
   try {
     const validationResult = userRegisterValidation.validate(req.body,
       { abortEarly: false })
     if (validationResult.error) {
-      // return res.send(joiErrorFormetter(validationResult.error))
-      return res.render('register', { message: 'validation error' })
+      return res.render('register', {
+        message: {
+          type: 'error',
+          body: 'validation Errors'
+        },
+        errors: joiErrorFormatter(validationResult.error),
+        FormData: req.body
+      })
     }
+    // eslint-disable-next-line no-unused-vars
     const user = await addUser(req.body)
-    console.log(user)
-    return res.render('register', { message: 'login successfull' })
+    // console.log(user)
+    return res.render('register', {
+      message: {
+        type: 'success',
+        body: 'Registration successfull'
+      },
+      errors: {},
+      FormData: req.body
+    })
   } catch (error) {
     console.error(error)
-    return res.send(mongoseErroeFormatter(error))
-    return res.status(400).render('register', { message: 'somethin went wrong' })
+    return res.status(400).render('register', {
+      message: {
+        type: 'error',
+        body: 'Validation error'
+      },
+      errors: mongoseErroeFormatter(error),
+      FormData: req.body
+    })
   }
 })
 module.exports = router

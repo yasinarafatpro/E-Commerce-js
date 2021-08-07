@@ -16,4 +16,5 @@ const mongoseErroeFormatter = (mongError) => {
   }
   return errors
 }
-module.exports = { joiErrorFormatter, mongoseErroeFormatter }
+module.exports = mongoseErroeFormatter
+module.exports = joiErrorFormatter
