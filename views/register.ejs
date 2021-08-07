@@ -7,7 +7,7 @@
     <%- include('includes/nav'); %>
       <div class="container mt-5">
         <h1>Registration</h1>
-        <% if (message) { %>
+        <% if (message.type) { %>
           <div class="alert alert-<%= message.type === 'success' ? 'success' : 'danger' %>" role="alert">
             <%= message.body %>
           </div>
@@ -20,9 +20,10 @@
                 class="form-control <%= errors.name ? 'is-invalid' : '' %>" 
                 id="name" 
                 name="name"
+                value="<%= formData.name %>"
                 maxlength="64"
                 minlength="2"
-                required
+                
                 >
                 <% if(errors.name) { %>
                 <div class="invalid-feedback">
@@ -38,7 +39,9 @@
                 class="form-control <%= errors.email ? 'is-invalid' : '' %>" 
                 id="email"
                 name="email"
-                  aria-describedby="emailHelp">
+                value="<%= formData.email%>"
+                aria-describedby="emailHelp"
+                required>
                 <% if (errors.email) { %>
                   <div class="invalid-feedback">
                     <%= errors.email[0] %>
@@ -50,10 +53,22 @@
                 <label for="password">password</label><sup class="form-label">*</sup></label>
                 <input 
                 type="password" 
-                class="form-control <%= errors.email ? 'is-invalid' : '' %>" 
+                class="form-control <%= errors.password ? 'is-invalid' : '' %>" 
                 id="password"
-                name="password">
+                name="password"
+                required>
               </div>
+
+              <div class="from-group">
+                <label for="password">Repeat Password</label><sup class="form-label">*</sup></label>
+                <input 
+                type="password" 
+                class="form-control" 
+                id="repeat_password"
+                name="repeat_password"
+                required>
+              </div>
+              
 
               <div class="from-group>
             <input type=" checkbox" class="form-check-input" id="exampleCheck1">

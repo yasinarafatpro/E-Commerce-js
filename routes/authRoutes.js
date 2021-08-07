@@ -6,7 +6,7 @@ const joiErrorFormatter = require('../utils/validationErrorFormatter')
 const mongoseErroeFormatter = require('../utils/validationErrorFormatter')
 
 router.get('/register', (req, res) => {
-  return res.render('register', { message: {}, FormData: {}, errors: {} })
+  return res.render('register', { message: {}, formData: {}, errors: {} })
 })
 router.post('/register', async (req, res) => {
   try {
@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
           body: 'validation Errors'
         },
         errors: joiErrorFormatter(validationResult.error),
-        FormData: req.body
+        formData: req.body
       })
     }
     // eslint-disable-next-line no-unused-vars
@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
         body: 'Registration successfull'
       },
       errors: {},
-      FormData: req.body
+      formData: req.body
     })
   } catch (error) {
     console.error(error)
@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
         body: 'Validation error'
       },
       errors: mongoseErroeFormatter(error),
-      FormData: req.body
+      formData: req.body
     })
   }
 })

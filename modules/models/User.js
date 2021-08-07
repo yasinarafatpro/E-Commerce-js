@@ -12,9 +12,10 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     lowercase: true,
-    required: [true, 'email is required'],
+    required: [true, 'Email is required'],
     maxlength: [128, 'email can\'t be higher then 128 characters'],
-    index: true
+    index: true,
+    unique: [true, 'email needs to be unique']
   },
   password: {
     type: String,

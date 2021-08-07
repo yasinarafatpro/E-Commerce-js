@@ -15,4 +15,5 @@ const registrationSchema = Joi.object({
 
   repeat_password: Joi.ref('password')
 })
+  .with('password', 'repeat_password')
 module.exports = registrationSchema
