@@ -45,4 +45,17 @@ router.post('/register', async (req, res) => {
     })
   }
 })
+router.get('/login', (req, res) => {
+  return res.render('login', { message: {}, formData: {}, errors: {} })
+})
+router.post('/login', (req, res) => {
+  return res.render('login', {
+    message: {
+      type: 'success',
+      body: 'login completed'
+    },
+    formData: {},
+    errors: {}
+  })
+})
 module.exports = router
