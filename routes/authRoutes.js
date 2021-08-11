@@ -4,6 +4,7 @@ const addUser = require('../modules/service/userService')
 const userRegisterValidation = require('../modules/validation/userValidation')
 const joiErrorFormatter = require('../utils/validationErrorFormatter')
 const mongoseErroeFormatter = require('../utils/validationErrorFormatter')
+const passport = require('passport')
 
 router.get('/register', (req, res) => {
   return res.render('register', { message: {}, formData: {}, errors: {} })
@@ -48,7 +49,10 @@ router.post('/register', async (req, res) => {
 router.get('/login', (req, res) => {
   return res.render('login', { message: {}, formData: {}, errors: {} })
 })
-router.post('/login', (req, res) => {
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/login-success',
+  failureRedirect: '/login-faild'
+}), (req, res) => {
   return res.render('login', {
     message: {
       type: 'success',
