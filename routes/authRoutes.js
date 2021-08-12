@@ -52,7 +52,7 @@ router.get('/login', guestAuthenticate, (req, res) => {
 })
 router.post('/login', guestAuthenticate, passport.authenticate('local', {
   successRedirect: '/login-success',
-  failureRedirect: '/login-faild'
+  failureRedirect: '/login'
 }), (req, res) => {
   return res.render('login', {
     message: {

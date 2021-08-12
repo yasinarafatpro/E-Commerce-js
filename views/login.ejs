@@ -23,6 +23,7 @@
                 name="email"
                 value="<%= formData.email%>"
                 aria-describedby="emailHelp"
+                required
                 >
                 <% if (errors.email) { %>
                   <div class="invalid-feedback">
@@ -38,7 +39,8 @@
                 class="form-control <%= errors.password ? 'is-invalid' : '' %>"
                 id="password"
                 name="password"
-                required>
+                required
+                >
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
