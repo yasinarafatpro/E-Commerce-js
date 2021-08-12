@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo')
 // const mongoDbConnection = require('./utils/db.config')
 const passport = require('passport')
 require('./utils/authStateges/localStrategy')
+const userAuthenticate = require('./middleWares/authMiddleWare')
 
 const authRouths = require('./routes/authRoutes')
 const app = express()
@@ -32,8 +33,10 @@ app.get('/', (req, res) => {
   req.session.views = (req.session.views || 0) + 1
   console.log('User', req.user)
   console.log(`you have visited ${req.session.views} times`)
-
   return res.render('index')
+})
+app.get('/home', userAuthenticate, (req, res) => {
+  res.send(`you are logged in ${req.user.name}`)
 })
 
 app.listen(2500, function () {

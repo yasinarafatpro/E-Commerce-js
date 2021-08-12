@@ -5,11 +5,12 @@ const userRegisterValidation = require('../modules/validation/userValidation')
 const joiErrorFormatter = require('../utils/validationErrorFormatter')
 const mongoseErroeFormatter = require('../utils/validationErrorFormatter')
 const passport = require('passport')
+const guestAuthenticate = require('../middleWares/guestMiddleware')
 
-router.get('/register', (req, res) => {
+router.get('/register', guestAuthenticate, (req, res) => {
   return res.render('register', { message: {}, formData: {}, errors: {} })
 })
-router.post('/register', async (req, res) => {
+router.post('/register', guestAuthenticate, async (req, res) => {
   try {
     const validationResult = userRegisterValidation.validate(req.body,
       { abortEarly: false })
@@ -46,10 +47,10 @@ router.post('/register', async (req, res) => {
     })
   }
 })
-router.get('/login', (req, res) => {
+router.get('/login', guestAuthenticate, (req, res) => {
   return res.render('login', { message: {}, formData: {}, errors: {} })
 })
-router.post('/login', passport.authenticate('local', {
+router.post('/login', guestAuthenticate, passport.authenticate('local', {
   successRedirect: '/login-success',
   failureRedirect: '/login-faild'
 }), (req, res) => {
