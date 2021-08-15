@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-lone-blocks */
 const express = require('express')
 const session = require('express-session')
@@ -26,6 +27,10 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.locals.message = {}
+app.locals.formData = {}
+app.locals.errors = {}
 
 app.use('/', authRouths)
 

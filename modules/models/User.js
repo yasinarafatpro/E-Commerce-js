@@ -35,6 +35,7 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password'))next()
   this.password = await bcrypt.hash(this.password, saltRounds)
 })
+// compare password
 userSchema.methods.checkPassword = async function (password) {
   const result = await bcrypt.compare(password, this.password)
   return result

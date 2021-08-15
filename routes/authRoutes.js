@@ -6,9 +6,10 @@ const joiErrorFormatter = require('../utils/validationErrorFormatter')
 const mongoseErroeFormatter = require('../utils/validationErrorFormatter')
 const passport = require('passport')
 const guestAuthenticate = require('../middleWares/guestMiddleware')
+const authMiddleWare = require('../middleWares/authMiddleWare')
 
 router.get('/register', guestAuthenticate, (req, res) => {
-  return res.render('register', { message: {}, formData: {}, errors: {} })
+  return res.render('register')
 })
 router.post('/register', guestAuthenticate, async (req, res) => {
   try {
@@ -32,7 +33,6 @@ router.post('/register', guestAuthenticate, async (req, res) => {
         type: 'success',
         body: 'Registration successfull'
       },
-      errors: {},
       formData: req.body
     })
   } catch (error) {
@@ -48,7 +48,7 @@ router.post('/register', guestAuthenticate, async (req, res) => {
   }
 })
 router.get('/login', guestAuthenticate, (req, res) => {
-  return res.render('login', { message: {}, formData: {}, errors: {} })
+  return res.render('login')
 })
 router.post('/login', guestAuthenticate, passport.authenticate('local', {
   successRedirect: '/login-success',
@@ -58,9 +58,11 @@ router.post('/login', guestAuthenticate, passport.authenticate('local', {
     message: {
       type: 'success',
       body: 'login completed'
-    },
-    formData: {},
-    errors: {}
+    }
   })
+})
+router.get('/logout', authMiddleWare, (req, res) => {
+  req.logOut()
+  res.redirect('/login')
 })
 module.exports = router
