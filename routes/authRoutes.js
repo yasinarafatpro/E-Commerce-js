@@ -7,8 +7,9 @@ const mongoseErroeFormatter = require('../utils/validationErrorFormatter')
 const passport = require('passport')
 const guestAuthenticate = require('../middleWares/guestMiddleware')
 const authMiddleWare = require('../middleWares/authMiddleWare')
+const flashDataMiddleware = require('../middleWares/flashDataMiddleware')
 
-router.get('/register', guestAuthenticate, (req, res) => {
+router.get('/register', guestAuthenticate, flashDataMiddleware, (req, res) => {
   return res.render('register')
 })
 router.post('/register', guestAuthenticate, async (req, res) => {
@@ -16,14 +17,15 @@ router.post('/register', guestAuthenticate, async (req, res) => {
     const validationResult = userRegisterValidation.validate(req.body,
       { abortEarly: false })
     if (validationResult.error) {
-      return res.render('register', {
+      req.session.flashData = {
         message: {
           type: 'error',
           body: 'validation Errors'
         },
         errors: joiErrorFormatter(validationResult.error),
         formData: req.body
-      })
+      }
+      return res.redirect('/register')
     }
     // eslint-disable-next-line no-unused-vars
     const user = await addUser(req.body)

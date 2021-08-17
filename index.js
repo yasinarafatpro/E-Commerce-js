@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-lone-blocks */
 const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
+const logger = require('morgan')
 require('./utils/db.config')
 const MongoStore = require('connect-mongo')
 // const mongoDbConnection = require('./utils/db.config')
@@ -25,6 +27,7 @@ app.use(session({
   cookie: { secure: false },
   store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/x-store' })
 }))
+app.use(logger('dev'))
 app.use(passport.initialize())
 app.use(passport.session())
 
