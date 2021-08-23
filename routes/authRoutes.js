@@ -49,22 +49,58 @@ router.post('/register', guestAuthenticate, async (req, res) => {
     })
   }
 })
-router.get('/login', guestAuthenticate, (req, res) => {
+router.get('/login', guestAuthenticate, flashDataMiddleware, (req, res) => {
   return res.render('login')
 })
-router.post('/login', guestAuthenticate, passport.authenticate('local', {
-  successRedirect: '/login-success',
-  failureRedirect: '/login'
-}), (req, res) => {
-  return res.render('login', {
+router.post('/login', guestAuthenticate, (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    // console.log('Err:', err)
+    // console.log('User:', user)
+    // console.log('Info:', info)
+    // res.redirect('/login')
+    if (err) {
+      console.error('Err: ', err)
+      req.session.flashData = {
+        message: {
+          type: 'error',
+          body: 'Login Failed'
+        }
+      }
+      return res.redirect('/login')
+    }
+    if (!user) {
+      req.session.flashData = {
+        message: {
+          type: 'error',
+          body: info.error
+        }
+      }
+      return res.redirect('/login')
+    }
+
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error('Err:', err)
+        req.session.flashData = {
+          message: {
+            type: 'error',
+            body: 'Login Failed'
+          }
+        }
+      }
+      return res.redirect('/home')
+    })
+  })(req, res, next)
+})
+
+router.get('/logout', authMiddleWare, (req, res) => {
+  req.logout()
+  req.session.flashData = {
     message: {
       type: 'success',
-      body: 'login completed'
+      body: 'Logout Success'
     }
-  })
-})
-router.get('/logout', authMiddleWare, (req, res) => {
-  req.logOut()
-  res.redirect('/login')
+  }
+  res.redirect('/')
 })
 module.exports = router

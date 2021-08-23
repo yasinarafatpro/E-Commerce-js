@@ -37,7 +37,7 @@ app.locals.errors = {}
 
 app.use('/', authRouths)
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
   req.session.views = (req.session.views || 0) + 1
   console.log('User', req.user)
   console.log(`you have visited ${req.session.views} times`)
