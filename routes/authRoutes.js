@@ -101,6 +101,6 @@ router.get('/logout', authMiddleWare, (req, res) => {
       body: 'Logout Success'
     }
   }
-  res.redirect('/')
+  res.redirect('/home')
 })
 module.exports = router
