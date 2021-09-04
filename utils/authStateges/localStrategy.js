@@ -8,15 +8,14 @@ passport.use(new LocalStrategy({
 async (email, password, done) => {
   try {
     const user = await User.findOne({ email })
-    if (!user) return done(null, false, { error: 'User Not Found' })
+    if (!user) return done(null, false, { message: 'User Not Found' })
 
     if (await user.checkPassword(password)) return done(null, user)
-    return done(null, false, { error: 'Incorrect Password' })
+    return done(null, false, { message: 'Incorrect User Password' })
   } catch (e) {
     return done(e)
   }
-}
-))
+}))
 passport.serializeUser((user, done) => {
   return done(null, user._id)
 })

@@ -72,7 +72,7 @@ router.post('/login', guestAuthenticate, (req, res, next) => {
       req.session.flashData = {
         message: {
           type: 'error',
-          body: info.error
+          body: info.message
         }
       }
       return res.redirect('/login')
@@ -101,6 +101,6 @@ router.get('/logout', authMiddleWare, (req, res) => {
       body: 'Logout Success'
     }
   }
-  res.redirect('/home')
+  res.redirect('/')
 })
 module.exports = router

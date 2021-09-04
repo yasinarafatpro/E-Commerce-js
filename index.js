@@ -38,14 +38,15 @@ app.locals.errors = {}
 
 app.use('/', authRouths)
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
   req.session.views = (req.session.views || 0) + 1
+  console.log(req.method)
   console.log('User', req.user)
   console.log(`you have visited ${req.session.views} times`)
   return res.render('index')
 })
 app.get('/home', userAuthenticate, (req, res) => {
-  res.send(`you are logged in ${req.user.name}`)
+  return res.send(`welcome ${req.user.name}`)
 })
 app.use((req, res, next) => {
   res.status(404).render('404')
