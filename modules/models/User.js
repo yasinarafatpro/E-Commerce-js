@@ -14,8 +14,7 @@ const userSchema = mongoose.Schema({
     lowercase: true,
     required: [true, 'Email is required'],
     maxlength: [128, 'email can\'t be higher then 128 characters'],
-    index: true,
-    unique: [true, 'email needs to be unique']
+    index: true
   },
   password: {
     type: String,
@@ -30,11 +29,20 @@ const userSchema = mongoose.Schema({
     default: false
   }
 })
+
+// unique email
+userSchema.path('email').validate(async (email) => {
+  const emailCount = await mongoose.models.users.countDocuments({ email })
+  return !emailCount
+}, 'Email already exists')
+
 // bcrypt password
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password'))next()
   this.password = await bcrypt.hash(this.password, saltRounds)
+  return next()
 })
+
 // compare password
 userSchema.methods.checkPassword = async function (password) {
   const result = await bcrypt.compare(password, this.password)

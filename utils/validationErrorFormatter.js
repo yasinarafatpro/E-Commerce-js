@@ -12,9 +12,8 @@ const mongoseErroeFormatter = (mongError) => {
   const errors = {}
   const detail = mongError.errors
   for (const key in detail) {
-    errors[key] = [[key].message]
+    errors[key] = [detail[key].message]
   }
   return errors
 }
-module.exports = mongoseErroeFormatter
-module.exports = joiErrorFormatter
+module.exports = { mongoseErroeFormatter, joiErrorFormatter }

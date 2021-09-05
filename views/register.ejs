@@ -15,16 +15,14 @@
             <form method="POST" action="/register">
               <div class="from-group">
                 <label for="name">Name<sup class="text-danger">*</sup></label>
-                <input 
-                type="text" 
-                class="form-control <%= errors.name ? 'is-invalid' : '' %>" 
-                id="name" 
+                <input
+                type="text"
+                class="form-control <%= errors.name ? 'is-invalid' : '' %>"
+                id="name"
                 name="name"
                 value="<%= formData.name %>"
                 maxlength="64"
-                minlength="2"
-                
-                >
+                minlength="2">
                 <% if(errors.name) { %>
                 <div class="invalid-feedback">
                   <%= errors.name[0] %>
@@ -34,9 +32,9 @@
 
               <div class="from-group">
                 <label for="email">Email address<sup class="form-label">*</sup></label>
-                <input 
-                type="email" 
-                class="form-control <%= errors.email ? 'is-invalid' : '' %>" 
+                <input
+                type="email"
+                class="form-control <%= errors.email ? 'is-invalid' : '' %>"
                 id="email"
                 name="email"
                 value="<%= formData.email%>"
@@ -51,9 +49,9 @@
 
               <div class="from-group">
                 <label for="password">password</label><sup class="form-label">*</sup></label>
-                <input 
-                type="password" 
-                class="form-control <%= errors.password ? 'is-invalid' : '' %>" 
+                <input
+                type="password"
+                class="form-control <%= errors.password ? 'is-invalid' : '' %>"
                 id="password"
                 name="password"
                 required>
@@ -61,17 +59,17 @@
 
               <div class="from-group">
                 <label for="password">Repeat Password</label><sup class="form-label">*</sup></label>
-                <input 
-                type="password" 
-                class="form-control" 
+                <input
+                type="password"
+                class="form-control"
                 id="repeat_password"
                 name="repeat_password"
                 required>
               </div>
-              
 
-              <div class="from-group>
-            <input type=" checkbox" class="form-check-input" id="exampleCheck1">
+
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
