@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-lone-blocks */
+require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
@@ -14,7 +12,7 @@ const userAuthenticate = require('./middleWares/authMiddleWare')
 
 const authRouths = require('./routes/authRoutes')
 const app = express()
-
+const config = require('./utils/config')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.set('view engine', 'ejs')
@@ -52,7 +50,7 @@ app.use((req, res, next) => {
   res.status(404).render('404')
 })
 
-app.listen(2500, function () {
-  console.log('server is running at port 2500')
+app.listen(config.port, function () {
+  console.log(`server is running at port ${config.port}`)
 })
 module.exports = app

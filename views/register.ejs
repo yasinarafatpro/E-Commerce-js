@@ -15,31 +15,19 @@
             <form method="POST" action="/register">
               <div class="from-group">
                 <label for="name">Name<sup class="text-danger">*</sup></label>
-                <input
-                type="text"
-                class="form-control <%= errors.name ? 'is-invalid' : '' %>"
-                id="name"
-                name="name"
-                value="<%= formData.name %>"
-                maxlength="64"
-                minlength="2">
+                <input type="text" class="form-control <%= errors.name ? 'is-invalid' : '' %>" id="name" name="name"
+                  value="<%= formData.name %>" maxlength="64" minlength="2">
                 <% if(errors.name) { %>
-                <div class="invalid-feedback">
-                  <%= errors.name[0] %>
-                </div>
-                <% } %>
+                  <div class="invalid-feedback">
+                    <%= errors.name[0] %>
+                  </div>
+                  <% } %>
               </div>
 
               <div class="from-group">
                 <label for="email">Email address<sup class="form-label">*</sup></label>
-                <input
-                type="email"
-                class="form-control <%= errors.email ? 'is-invalid' : '' %>"
-                id="email"
-                name="email"
-                value="<%= formData.email%>"
-                aria-describedby="emailHelp"
-                >
+                <input type="email" class="form-control <%= errors.email ? 'is-invalid' : '' %>" id="email" name="email"
+                  value="<%= formData.email%>" aria-describedby="emailHelp">
                 <% if (errors.email) { %>
                   <div class="invalid-feedback">
                     <%= errors.email[0] %>
@@ -49,22 +37,13 @@
 
               <div class="from-group">
                 <label for="password">password</label><sup class="form-label">*</sup></label>
-                <input
-                type="password"
-                class="form-control <%= errors.password ? 'is-invalid' : '' %>"
-                id="password"
-                name="password"
-                required>
+                <input type="password" class="form-control <%= errors.password ? 'is-invalid' : '' %>" id="password"
+                  name="password" required>
               </div>
 
               <div class="from-group">
                 <label for="password">Repeat Password</label><sup class="form-label">*</sup></label>
-                <input
-                type="password"
-                class="form-control"
-                id="repeat_password"
-                name="repeat_password"
-                required>
+                <input type="password" class="form-control" id="repeat_password" name="repeat_password" required>
               </div>
 
 

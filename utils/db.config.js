@@ -1,8 +1,7 @@
-/* eslint-disable eol-last */
-/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose')
+const config = require('./config')
 
-mongoose.connect('mongodb://localhost:27017/x-store', {
+mongoose.connect(config.mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
