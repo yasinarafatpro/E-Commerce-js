@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 const User = require('../models/User')
 /**
  * create a newUser and return it

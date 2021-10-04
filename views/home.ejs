@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <%- include('includes/header'); %>
+  <body>
+    <%- include('includes/nav'); %>
+    <h1>This is HomePage!</h1>
+    <% if (message.type) { %>
+      <div class="alert alert-<%= message.type === 'success' ? 'success' : 'danger' %>" role="alert">
+        <%= message.body %>
+      </div>
+    <% } %>
+    <%- include('includes/footer'); %>
+
+  </body>
+</html>

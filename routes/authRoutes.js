@@ -8,6 +8,9 @@ const guestAuthenticate = require('../middleWares/guestMiddleware')
 const authMiddleWare = require('../middleWares/authMiddleWare')
 const flashDataMiddleware = require('../middleWares/flashDataMiddleware')
 
+router.get('/home', (req, res) => {
+  return res.render('home')
+})
 router.get('/register', guestAuthenticate, flashDataMiddleware, (req, res) => {
   return res.render('register')
 })

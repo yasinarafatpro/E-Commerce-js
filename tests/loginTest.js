@@ -1,9 +1,9 @@
-/* eslint-disable node/handle-callback-err */
 /* eslint-disable no-undef */
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const request = require('node-fetch')
 const app = require('../index')
+// eslint-disable-next-line no-unused-vars
 const userCases = require('./cases/userCases')
 const config = require('./config')
 
@@ -19,10 +19,24 @@ describe('server test', function () {
   // after(async function(){
 
   // })
-  it('should create a user', async () => {
-    const resp = await request(`${config.host}/register`, {
+  it('should log a user', async () => {
+    const resp = await request(`${config.host}/login`, {
       method: 'post',
-      body: JSON.stringify(userCases.case_01.input),
+      body: JSON.stringify({
+        email: 'a@gmail.com',
+        password: '1234'
+      }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    resp.should.have.status(200)
+  })
+  it('Not log a user', async () => {
+    const resp = await request(`${config.host}/login`, {
+      method: 'post',
+      body: JSON.stringify({
+        email: 'abc@gmail.com',
+        password: '1234'
+      }),
       headers: { 'Content-Type': 'application/json' }
     })
     resp.should.have.status(200)

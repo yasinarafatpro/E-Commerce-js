@@ -6,7 +6,8 @@
   "scripts": {
     "serve:local": "nodemon index.js",
     "test": "mocha tests/*.js --exit",
-    "test:server": "mocha tests/serverIsRunning.js",
+    "test:register": "mocha tests/registerTest.js",
+    "test:login": "mocha tests/loginTest.js",
     "lint": "eslint ./*.js",
     "lint:fix": "eslint --fix ./*.js"
   },

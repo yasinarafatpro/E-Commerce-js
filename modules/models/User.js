@@ -34,7 +34,7 @@ const userSchema = mongoose.Schema({
 userSchema.path('email').validate(async (email) => {
   const emailCount = await mongoose.models.users.countDocuments({ email })
   return !emailCount
-}, 'Email already exists')
+}, 'This Email already exists!')
 
 // bcrypt password
 userSchema.pre('save', async function (next) {

@@ -8,6 +8,7 @@ const MongoStore = require('connect-mongo')
 // const mongoDbConnection = require('./utils/db.config')
 const passport = require('passport')
 require('./utils/authStateges/localStrategy')
+// eslint-disable-next-line no-unused-vars
 const userAuthenticate = require('./middleWares/authMiddleWare')
 
 const authRouths = require('./routes/authRoutes')
@@ -43,8 +44,8 @@ app.get('/', (req, res) => {
   console.log(`you have visited ${req.session.views} times`)
   return res.render('index')
 })
-app.get('/home', userAuthenticate, (req, res) => {
-  return res.send(`welcome ${req.user.name}`)
+app.use('/home', userAuthenticate, (req, res) => {
+  return res.render(`Welcome ${req.user.name}`)
 })
 app.use((req, res, next) => {
   res.status(404).render('404')
